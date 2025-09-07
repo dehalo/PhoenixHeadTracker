@@ -259,14 +259,18 @@ namespace PhoenixHeadTracker
                 double deltaRollRotation = arr[0] - lastRollRot;
 
                 // Calculate and update drift compensation
-                driftXCompensation += deltaXRotation * 0.01; // Adjust this factor as needed
+                //driftXCompensation += deltaXRotation * 0.01; // Adjust this factor as needed 
+                //driftXCompensation += deltaXRotation * FightDriftX / 100; modAM1: Pos. FightDrift reduziert Drehung
+                //driftXCompensation += FightDriftX / 100; //modAM2: <100 kein Einfluss, bei 100 dreht er Uhrzeigersinn, driftXCompensation ist double (int)
+                driftXCompensation += FightDriftX; //modAM3
                 driftYCompensation += deltaYRotation * 0.01; // Adjust this factor as needed
                 driftRollCompensation += deltaRollRotation * 0.01; // Adjust this factor as needed
 
                 // Update x, y, and roll rotation distances based on the previous values
                 double tempX2 = (xRot - arr[2]);
-                xRot += (rotDistanceYaw - tempX2) - driftXCompensation-FightDriftX;
-
+                //xRot += (rotDistanceYaw - tempX2) - driftXCompensation-FightDriftX; 
+                //xRot += (rotDistanceYaw - tempX2) - driftXCompensation; //modAM1&2
+                xRot += (rotDistanceYaw - tempX2) - driftXCompensation/3000; //modAM3 sieht mit +15 gut aus
 
                 double tempY2 = (yRot - arr[1]);
                 yRot += rotDistancePitch - tempY2 - driftYCompensation - FightDriftY; ;
