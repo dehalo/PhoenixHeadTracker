@@ -272,13 +272,13 @@ namespace PhoenixHeadTracker
                 double tempX2 = (xRot - arr[2]);
                 //xRot += (rotDistanceYaw - tempX2) - driftXCompensation-FightDriftX; 
                 //xRot += (rotDistanceYaw - tempX2) - driftXCompensation; //modAM1&2
-                xRot += (rotDistanceYaw - tempX2) - driftXCompensation/3000; //modAM3 sieht mit +15 gut aus
+                xRot += (rotDistanceYaw - tempX2) + driftXCompensation/3000; //modAM3 sieht mit +15 gut aus
                 double tempY2 = (yRot - arr[1]);
                 //yRot += rotDistancePitch - tempY2 - driftYCompensation - FightDriftY; ;
-                yRot += rotDistancePitch - tempY2 - driftYCompensation/3000; //modAM3
+                yRot += rotDistancePitch - tempY2 + driftYCompensation/3000; //modAM3
                 double tempRoll2 = (rollRot - arr[0]);
                 //rollRot += rollDistanceRoll - tempRoll2 - driftRollCompensation - FightDriftRoll; ;
-                rollRot += rollDistanceRoll - tempRoll2 - driftRollCompensation/3000; //modAM3
+                rollRot += rollDistanceRoll - tempRoll2 + driftRollCompensation/3000; //modAM3
 
                 textBoxLog1.Text = string.Format("driftCompensation {0}\r\n", driftXCompensation);
 
