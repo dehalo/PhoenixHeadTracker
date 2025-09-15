@@ -263,20 +263,22 @@ namespace PhoenixHeadTracker
                 //driftXCompensation += deltaXRotation * FightDriftX / 100; modAM1: Pos. FightDrift reduziert Drehung
                 //driftXCompensation += FightDriftX / 100; //modAM2: <100 kein Einfluss, bei 100 dreht er Uhrzeigersinn, driftXCompensation ist double (int)
                 driftXCompensation += FightDriftX; //modAM3
-                driftYCompensation += deltaYRotation * 0.01; // Adjust this factor as needed
-                driftRollCompensation += deltaRollRotation * 0.01; // Adjust this factor as needed
+                //driftYCompensation += deltaYRotation * 0.01; // Adjust this factor as needed
+                driftYCompensation += FightDriftY; //modAM3
+                //driftRollCompensation += deltaRollRotation * 0.01; // Adjust this factor as needed
+                driftRollCompensation += FightDriftRoll; //moAM3
 
                 // Update x, y, and roll rotation distances based on the previous values
                 double tempX2 = (xRot - arr[2]);
                 //xRot += (rotDistanceYaw - tempX2) - driftXCompensation-FightDriftX; 
                 //xRot += (rotDistanceYaw - tempX2) - driftXCompensation; //modAM1&2
-                xRot += (rotDistanceYaw - tempX2) - driftXCompensation/3000; //modAM3 sieht mit +15 gut aus
-
+                xRot += (rotDistanceYaw - tempX2) + driftXCompensation/3000; //modAM3 sieht mit +15 gut aus
                 double tempY2 = (yRot - arr[1]);
-                yRot += rotDistancePitch - tempY2 - driftYCompensation - FightDriftY; ;
-
+                //yRot += rotDistancePitch - tempY2 - driftYCompensation - FightDriftY; ;
+                yRot += rotDistancePitch - tempY2 + driftYCompensation/3000; //modAM3
                 double tempRoll2 = (rollRot - arr[0]);
-                rollRot += rollDistanceRoll - tempRoll2 - driftRollCompensation - FightDriftRoll; ;
+                //rollRot += rollDistanceRoll - tempRoll2 - driftRollCompensation - FightDriftRoll; ;
+                rollRot += rollDistanceRoll - tempRoll2 + driftRollCompensation/3000; //modAM3
 
                 textBoxLog1.Text = string.Format("driftCompensation {0}\r\n", driftXCompensation);
 
